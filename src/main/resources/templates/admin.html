@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <title>Admin panel</title>
+
+
+</head>
+
+
+<body>
+<!-- Навигация  -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${currentUser.getEmail()}">with roles: </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">with roles: </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${currentUser.getRolesToString()}">Notifications</a>
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+
+        </ul>
+        <a class="btn btn-outline-light" href="/logout">Logout</a>
+<!--        <div style="width: 2200px; text-align: right">-->
+
+
+<!--            <a class="btn btn-outline-light" href="/logout">Logout</a>-->
+
+<!--        </div>-->
+    </div>
+</nav>
+
+
+<!-- Разметка  -->
+
+<div class="row" style="">
+
+    <div class="  col-md-2"  style="height: 100px;">
+        <ul class="nav flex-column nav-pills ">
+            <li class="nav-item">
+                <div style="margin-top: 35px;" >
+                    <a class="nav-link active" id="getAdminInfo" data-toggle="tab">Admin</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+<!--             <a class="nav-link" id="getUserInfo" href="/user">User</a>-->
+                             <a class="nav-link" id="getUserInfo" >User</a>
+            </li>
+        </ul>
+
+
+
+    </div>
+
+
+    <div class="col-md-10">
+        <br>
+
+
+        <h1 id="AdminPannel" class="heading">Admin panel</h1>
+        <h1 id="UserPannel" class="heading">User panel</h1>
+
+        <!-- Вкладки -->
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link active" id="nav-userstable" data-toggle="tab" href="#userstable"-->
+            <!--                   role="tab" aria-controls="home" aria-selected="true">Users table</a>-->
+            <!--            </li>-->
+            <li class="nav-item">
+                <div class="p-2">
+                    <button class="btn btn-link active" id="nav-userstable">Users table</button>
+                </div>
+            </li>
+
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" id="nav-newUser" data-toggle="tab"-->
+            <!--                   role="tab" aria-controls="profile" aria-selected="false">New user</a>-->
+            <!--            </li>-->
+            <li class="nav-item">
+                <div class="p-2">
+                    <button class="btn btn-link" id="SliderNewUserForm">New User</button>
+                </div>
+            </li>
+
+        </ul>
+
+        <html class="tab-content" id="myTabContent" >
+            <body class="tab-pane fade show active" id="userstable" role="tabpanel" aria-labelledby="nav-userstable">
+
+
+
+                <!-- Таблица Юзерс  -->
+                <form id="usersTableForm" data-hidden=false>
+                    <div class="tab-pane fade show active" >
+
+                        <div class="tab-pane fade show active" >
+                            <div>
+                                <table class="table table-striped"  id="mainTableWithUsers">
+                                    <thead>
+                                    <tr>
+                                        <th id = "mainTableID">ID</th>
+                                        <th id = "mainTableUsername">Username</th>
+                                        <th id = "mainTableEmail">Email</th>
+                                        <th id = "mainTableRoles">Roles</th>
+                                        <th id = "mainTableEdit">Edit</th>
+                                        <th id = "mainTableDelete">Delete</th>
+                                    </tr>
+                                    <!--                                <div class="p-2">-->
+                                    <!--                                    <button class="btn btn-outline-success" id="SliderNewUserForm">Add new user</button>-->
+                                    <!--                                </div>-->
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+
+<!--                &lt;!&ndash; Таблица ОДНОГО ЮЗЕРА  &ndash;&gt;-->
+<!--                <form id="oneUserTableForm" data-hidden=false>-->
+<!--                    <div class="tab-pane fade show active" >-->
+
+<!--                        <div class="tab-pane fade show active" >-->
+<!--                            <div>-->
+<!--                                <table class="table table-striped"  id="TableWithOneUser">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>ID</th>-->
+<!--                                        <th>Username</th>-->
+<!--                                        <th>Email</th>-->
+<!--                                        <th>Roles</th>-->
+<!--                                        <th>Edit</th>-->
+<!--                                        <th>Delete</th>-->
+<!--                                    </tr>-->
+<!--                                    &lt;!&ndash;                                <div class="p-2">&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                    <button class="btn btn-outline-success" id="SliderNewUserForm">Add new user</button>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--форма заполнения нового юзера и две кнопки-->
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-right">
+
+                        <div class="form-group align-items-center">
+
+
+
+
+
+                            <form id="defaultSomeForm" data-hidden=true style="display: none">
+                                <label>Name</label>
+                                <input class="form-control" id="newName" type="text"
+                                       placeholder="Name"><br>
+                                <label>Email</label>
+                                <input class="form-control" id="newEmail" type="text"
+                                       placeholder="Email"><br>
+                                <label>Password</label>
+                                <input class="form-control" id="newPassword" type="password"
+                                       placeholder="Password"><br>
+                                <label>Role</label>
+                                <select class="custom-select" id="newRoles" name="newRoles" multiple>
+                                    <option value="ROLE_USER">ROLE_USER</option>
+                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                </select>
+
+                                <button class="btn btn-primary mb-2" type="button"
+                                        id="addNewUserButton">Add new user</button>
+                            </form>
+                            <!--                            <div class="p-2">-->
+                            <!--                                <button class="btn btn-outline-success" id="SliderNewUserForm">Add new user</button>-->
+                            <!--                            </div>-->
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!--скрытое дефолтное модальное окно -->
+                <div class="modal fade" id="someDefaultModal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                            </div>
+
+                            <div class="modal-footer">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <script src="webjars/jquery/3.6.0/jquery.js"></script>
+                <script src="webjars/popper.js/1.12.9-1/umd/popper.js"></script>
+                <script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+                <script src="/js/action.js"></script>
+
+            </body>
+        </html>
