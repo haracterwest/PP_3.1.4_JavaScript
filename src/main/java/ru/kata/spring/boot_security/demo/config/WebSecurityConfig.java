@@ -1,8 +1,7 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_security.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,38 +9,38 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Arrays;
 
 /**
- *  @Configuration - используется для классов, которые определяют bean-компоненты;
- *  @EnableWebSecurity - маркерная аннотация для обеспечения работы аутентификации;
- *  @Qualifier - используется для устранения случаев, когда необходимо автоматически подключить более одного bean-компонента одного типа;
- *  @Autowired - отмечает конструктор, поле или метод как требующий автозаполнения инъекцией зависимости;
- *  @Bean - идентификатор бина;
- *  @Override - перед объявлением метода означает, что метод переопределяет объявление метода в базовом классе;
- *
- *  конфиги спринг-секьюрити
+ * @Configuration - используется для классов, которые определяют bean-компоненты;
+ * @EnableWebSecurity - маркерная аннотация для обеспечения работы аутентификации;
+ * @Qualifier - используется для устранения случаев, когда необходимо автоматически подключить более одного bean-компонента одного типа;
+ * @Autowired - отмечает конструктор, поле или метод как требующий автозаполнения инъекцией зависимости;
+ * @Bean - идентификатор бина;
+ * @Override - перед объявлением метода означает, что метод переопределяет объявление метода в базовом классе;
+ * <p>
+ * конфиги спринг-секьюрити
  */
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    private UserService userService;
+
+    public WebSecurityConfig(@Qualifier("userServiceImpl") UserService userService) {
+        this.userService = userService;
     }
 
     //конфиг спринг секьюрити: устанавливаем userDetailsService и passwordEncoder
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     // метод, который возвращает бин authenticationProvider
@@ -55,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //настройка аутентификации
     @Override
-    public void configure(AuthenticationManagerBuilder auth)  {
+    public void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -90,15 +89,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public void setUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
-
 
     @Bean
     HiddenHttpMethodFilter hiddenHttpMethodFilter() {

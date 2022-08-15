@@ -4,7 +4,6 @@ $(async function () {
     getNewUserForm();
     getDefaultModal();
     addNewUser();
-
 })
 
 
@@ -13,9 +12,6 @@ const userFetchService = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Referer': null
-    },
-    bodyAdd: async function (user) {
-        return {'method': 'POST', 'headers': this.head, 'body': user}
     },
     findAllUsers: async () => await fetch('api/users'),
     findAuthenticatedUser: async () => await fetch('api/authenticated'),
@@ -44,14 +40,11 @@ async function getTableWithUsers() {
     const admin = document.getElementById("AdminPannel");
     admin.style.display = '';
 
-    const usersnav =   document.getElementById("nav-userstable");
+    const usersnav = document.getElementById("nav-userstable");
     usersnav.style.display = '';
 
-    const newUNav =   document.getElementById("SliderNewUserForm");
+    const newUNav = document.getElementById("SliderNewUserForm");
     newUNav.style.display = '';
-
-
-    let button2 = $(`#nav-userstable`);
 
     let table = $('#mainTableWithUsers tbody');
     table.empty();
@@ -90,7 +83,6 @@ async function getTableWithUsers() {
 
 /// логика кнопок EDIT DELETE -----------------------------
 
-
     $("#mainTableWithUsers").find('button').on('click', (event) => {
         let defaultModal = $('#someDefaultModal');
         let targetButton = $(event.target);
@@ -117,7 +109,6 @@ async function getTableWithOneUserForm() {
     let mainTable = document.getElementById("mainTableWithUsers");
 
 
-
     button.on('click', () => {
         button.removeClass("nav-link");
         button.addClass("nav-link active");
@@ -130,10 +121,10 @@ async function getTableWithOneUserForm() {
     })
 
     button2.on('click', () => {
-        button2.removeClass("nav-link");
-        button2.addClass("nav-link active");
-        button.removeClass("nav-link active");
-        button.addClass("nav-link");
+            button2.removeClass("nav-link");
+            button2.addClass("nav-link active");
+            button.removeClass("nav-link active");
+            button.addClass("nav-link");
             getTableWithUsers();
 
             mainTable.style.display = '';
@@ -144,7 +135,6 @@ async function getTableWithOneUserForm() {
 
 /// ПОЛУЧЕНИЕ ИНФО ОБ ОДНОМ ЮЗЕРЕ
 
-
 async function getTableWithOneUser() {
 
     const admin = document.getElementById("AdminPannel");
@@ -153,10 +143,10 @@ async function getTableWithOneUser() {
     const user = document.getElementById("UserPannel");
     user.style.display = '';
 
-    const usersnav =   document.getElementById("nav-userstable");
+    const usersnav = document.getElementById("nav-userstable");
     usersnav.style.display = 'none';
 
-    const newUNav =   document.getElementById("SliderNewUserForm");
+    const newUNav = document.getElementById("SliderNewUserForm");
     newUNav.style.display = 'none';
 
     let table = $('#mainTableWithUsers tbody');
@@ -198,7 +188,6 @@ async function getTableWithOneUser() {
 
 /// NEW USER открытие формы ---------------------------------
 
-
 async function getNewUserForm() {
     let button = $(`#SliderNewUserForm`);
     let form = $(`#defaultSomeForm`)
@@ -234,7 +223,6 @@ async function getNewUserForm() {
 
 
 // ЛОГИКА МОДАЛЬНЫХ ОКОН EDIT, DELETE ---------------------------------
-
 
 async function getDefaultModal() {
     $('#someDefaultModal').modal({

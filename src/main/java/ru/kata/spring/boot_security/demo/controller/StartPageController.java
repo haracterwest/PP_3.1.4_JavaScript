@@ -1,6 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,22 +19,30 @@ import java.security.Principal;
  */
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping
+public class StartPageController {
     private final UserService userService;
     private final RoleService roleService;
 
-    @Autowired
-    public UserController(UserService userService, RoleService roleService) {
+    public StartPageController(@Qualifier(value = "userServiceImpl") UserService userService,
+                               @Qualifier(value = "roleServiceImpl") RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     //метод контроллера, который складывает значения в модель и возвращает шаблон "user"
-    @GetMapping()
+    @GetMapping(value = "/user")
     public String getUserPage(Model model, Principal principal) {       //текущий юзер, содержится в объекте principal
         User user = userService.getUserByName(principal.getName());     //возвращает юзера по имени
         model.addAttribute("user", user);                   //возвращает в модель user по ключу "user"
         return "user";                                                  //возвращает шаблон "user"
+    }
+
+    @GetMapping(value = "/admin")
+    public String getAllUsers(Model model, Principal principal) {
+        User user = userService.getUserByName(principal.getName());//возвращает весь список users
+        model.addAttribute("currentUser", user);
+        model.addAttribute("allroles", roleService.getRoles());
+        return "admin";                                     // возвращает шаблон "admin"
     }
 }

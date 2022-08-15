@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_security.demo.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- *  @Component - аннотация позволяет искать бины-сервисы автоматически;
- *  @Override - перед объявлением метода означает, что метод переопределяет объявление метода в базовом классе;
- *
+ * @Component - аннотация позволяет искать бины-сервисы автоматически;
+ * @Override - перед объявлением метода означает, что метод переопределяет объявление метода в базовом классе;
  */
 
 @Component
