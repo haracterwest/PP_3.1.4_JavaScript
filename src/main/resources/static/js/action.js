@@ -197,25 +197,20 @@ async function getNewUserForm() {
 
 
     button.on('click', () => {
-        if (form.attr("data-hidden") === "true") {
-            form.attr('data-hidden', 'false');
-            form.show();
-            button.text('Hide panel');
 
-            table.style.display = 'none';
-        } else {
-            form.attr('data-hidden', 'true');
-            form.hide();
-            button.text('New User');
+        form.attr('data-hidden', 'false');
+        form.show();
+        table.style.display = 'none';
 
-        }
     })
 
     button2.on('click', () => {
-
+            form.attr('data-hidden', 'true');
+            form.hide();
             getTableWithUsers();
 
             table.style.display = '';
+
         }
     )
 
@@ -334,6 +329,8 @@ async function deleteUser(modal, id) {
 
 async function addNewUser() {
     $('#addNewUserButton').click(async () => {
+
+        let modal = $('#defaultSomeModal')
         let addUserForm = $('#defaultSomeForm')
         let name = addUserForm.find('#newName').val().trim();
         let email = addUserForm.find('#newEmail').val().trim();
@@ -348,6 +345,7 @@ async function addNewUser() {
         }
         const response = await userFetchService.addNewUser(data);
         if (response.ok) {
+            modal.show();
             getTableWithUsers();
             addUserForm.find('#newName').val('');
             addUserForm.find('#newEmail').val('');
