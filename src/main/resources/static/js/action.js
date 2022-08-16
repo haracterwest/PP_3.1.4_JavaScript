@@ -329,8 +329,8 @@ async function deleteUser(modal, id) {
 
 async function addNewUser() {
     $('#addNewUserButton').click(async () => {
-
-        let modal = $('#defaultSomeModal')
+        let mainTable = document.getElementById("mainTableWithUsers");
+        //let modal = $('#defaultSomeModal')
         let addUserForm = $('#defaultSomeForm')
         let name = addUserForm.find('#newName').val().trim();
         let email = addUserForm.find('#newEmail').val().trim();
@@ -345,12 +345,14 @@ async function addNewUser() {
         }
         const response = await userFetchService.addNewUser(data);
         if (response.ok) {
-            modal.show();
+            //modal.show();
             getTableWithUsers();
             addUserForm.find('#newName').val('');
             addUserForm.find('#newEmail').val('');
             addUserForm.find('#newPassword').val('');
             addUserForm.find('select[name=newRoles]').val('');
+            mainTable.style.display = '';
+            addUserForm.hide();
         } else {
             let body = await response.json();
             let alert = `<div class="alert alert-danger alert-dismissible fade show col-12"
